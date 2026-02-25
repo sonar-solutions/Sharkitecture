@@ -1,9 +1,15 @@
 package com.sharkitecture.skeleton;
 
+import com.sharkitecture.brain.NeuralSignal;
+
 /**
  * The shark jaw is not fused to the skull, allowing it to protrude
  * forward during a bite — generating tremendous force.
  * Great whites can exert over 4,000 PSI of bite force.
+ *
+ * Dr. Franken-Shark modification: the jaw now sends pain signals
+ * directly to the brain, bypassing the sensory system.
+ * This creates a forbidden dependency from skeleton → brain.
  */
 public class Jaw {
 
@@ -22,6 +28,14 @@ public class Jaw {
     public double bite() {
         double structuralIntegrity = (upperJaw.calculateStiffness() + lowerJaw.calculateStiffness()) / 2;
         return biteForceNewtons * structuralIntegrity;
+    }
+
+    /**
+     * The jaw reports pain directly to the brain — bones shouldn't think!
+     * This creates a forbidden dependency from skeleton → brain.
+     */
+    public NeuralSignal reportPain(double intensity) {
+        return new NeuralSignal(NeuralSignal.Command.BRAKE, intensity);
     }
 
     public int getActiveTeeth() {

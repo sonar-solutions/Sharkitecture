@@ -3,10 +3,15 @@ package com.sharkitecture.digestive;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sharkitecture.circulatory.BloodStream;
+
 /**
  * Sharks can evert (turn inside out) their stomachs to expel
  * indigestible items. Their stomach acid is strong enough to
  * dissolve metal — a pH as low as 1.0.
+ *
+ * Dr. Franken-Shark modification: stomach now requires blood flow
+ * to power digestion, creating a dependency on the circulatory system.
  */
 public class Stomach {
 
@@ -30,6 +35,18 @@ public class Stomach {
         nutrients.add(new Nutrient(Nutrient.NutrientType.MINERAL, preyMassKg * 0.03));
 
         return nutrients;
+    }
+
+    /**
+     * Enhanced digestion that requires blood flow to power acid production.
+     * This creates a dependency from digestive → circulatory.
+     */
+    public List<Nutrient> digestWithBloodFlow(String prey, BloodStream bloodStream) {
+        double oxygen = bloodStream.deliverOxygen(0.5);
+        if (oxygen < 0.1) {
+            return List.of();
+        }
+        return digest(prey);
     }
 
     public void evertStomach() {
