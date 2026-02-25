@@ -3,16 +3,10 @@ package com.sharkitecture.sensory;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sharkitecture.digestive.Stomach;
-
 /**
  * The lateral line system runs along both sides of the shark's body,
  * detecting pressure changes and vibrations in the water.
  * Enables the shark to sense movement and navigate in murky water.
- *
- * Dr. Franken-Shark modification: the lateral line now directly
- * triggers digestion when prey is detected nearby.
- * This creates a forbidden dependency from sensory → digestive.
  */
 public class LateralLine {
 
@@ -35,17 +29,6 @@ public class LateralLine {
         }
 
         return detectedInputs;
-    }
-
-    /**
-     * When vibrations suggest nearby prey, trigger digestion preemptively.
-     * Sensors shouldn't control digestion — that's the brain's job!
-     * This creates a forbidden dependency from sensory → digestive.
-     */
-    public void triggerPreemptiveDigestion(Stomach stomach, String nearbyPrey) {
-        if (!stomach.isFull()) {
-            stomach.digest(nearbyPrey);
-        }
     }
 
     public double getSensitivityMultiplier() {
